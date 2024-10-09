@@ -1,27 +1,19 @@
 import { assign, enqueueActions, setup } from "xstate"
-import {
-  AddressStepSchema,
-  ContactInfoStepSchema,
-  MultiStepFormSchema,
-  PetDataStepSchema,
-} from "./MultiStepForm.types"
+import { MultiStepFormSchema } from "./MultiStepForm.types"
 
 type FormContext = {
   data: MultiStepFormSchema
 }
 
 type FormEvent =
-  | {
-      type: "contactInfoStep.next"
-      data: ContactInfoStepSchema
-    }
-  | { type: "addressStep.next"; data: AddressStepSchema }
-  | { type: "petDataStep.next"; data: PetDataStepSchema }
   | { type: "back" }
-  | { type: "submit" }
   | { type: "exit" }
+  | {
+      type: "next"
+      data: Partial<MultiStepFormSchema>
+    }
 
-const initialData = {
+const initialData: MultiStepFormSchema = {
   contactInfoStep: {
     name: "",
     email: "",
@@ -36,7 +28,7 @@ const initialData = {
     petAge: "",
     petIdNumber: "",
   },
-} satisfies MultiStepFormSchema
+}
 
 export const multiStepFormMachine = setup({
   types: {
@@ -64,11 +56,11 @@ export const multiStepFormMachine = setup({
   states: {
     contactInfoStep: {
       on: {
-        "contactInfoStep.next": {
+        next: {
           actions: assign({
             data: ({ context, event }) => ({
               ...context.data,
-              contactInfoStep: event.data,
+              ...event.data,
             }),
           }),
           target: "addressStep",
@@ -77,11 +69,11 @@ export const multiStepFormMachine = setup({
     },
     addressStep: {
       on: {
-        "addressStep.next": {
+        next: {
           actions: assign({
             data: ({ context, event }) => ({
               ...context.data,
-              addressStep: event.data,
+              ...event.data,
             }),
           }),
           target: "petDataStep",
@@ -93,11 +85,11 @@ export const multiStepFormMachine = setup({
     },
     petDataStep: {
       on: {
-        "petDataStep.next": {
+        next: {
           actions: assign({
             data: ({ context, event }) => ({
               ...context.data,
-              petDataStep: event.data,
+              ...event.data,
             }),
           }),
           target: "reviewDataStep",
@@ -112,19 +104,7 @@ export const multiStepFormMachine = setup({
         back: {
           target: "petDataStep",
         },
-        submit: {
-          actions: () => {
-            console.log("Submitting data!")
-          },
-          // target: "done",
-        },
       },
     },
-    // done: {
-    //   type: "final",
-    // entry: assign({
-    //   data: initialData,
-    // }),
-    // },
   },
 })

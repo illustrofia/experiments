@@ -20,7 +20,9 @@ function App() {
         {state.matches("contactInfoStep") && (
           <ContactInfoForm
             defaultValues={state.context.data.contactInfoStep}
-            onSubmit={(data) => send({ type: "contactInfoStep.next", data })}
+            onSubmit={(contactInfoStep) =>
+              send({ type: "next", data: { contactInfoStep } })
+            }
             onBack={() => send({ type: "back" })}
             onExit={() => send({ type: "exit" })}
           />
@@ -29,7 +31,9 @@ function App() {
         {state.matches("addressStep") && (
           <AddressForm
             defaultValues={state.context.data.addressStep}
-            onSubmit={(data) => send({ type: "addressStep.next", data })}
+            onSubmit={(addressStep) =>
+              send({ type: "next", data: { addressStep } })
+            }
             onBack={() => send({ type: "back" })}
             onExit={() => send({ type: "exit" })}
           />
@@ -37,7 +41,9 @@ function App() {
 
         {state.matches("petDataStep") && (
           <PetDataForm
-            onSubmit={(data) => send({ type: "petDataStep.next", data })}
+            onSubmit={(petDataStep) =>
+              send({ type: "next", data: { petDataStep } })
+            }
             defaultValues={state.context.data.petDataStep}
             onBack={() => send({ type: "back" })}
             onExit={() => send({ type: "exit" })}
