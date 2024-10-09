@@ -45,22 +45,23 @@ export const multiStepFormMachine = setup({
   },
   actions: {},
 }).createMachine({
+  /** @xstate-layout N4IgpgJg5mDOIC5QDMD2AnAtgYjADwEsAXAbQAYBdRUAB1VmINQDtqQ9EBaAJgDYBOAHT8AHAEZ+vEQFYAzFIDss2QBoQAT0R9ZgstP6y9vMUe5jpAXwtq0WQQGMWRAIb2iASWZoAykTA1sR2YXN08fPxpBZnxSSjY6BiImViR2LgUxQRE+XgAWbhF+aTJ+flzctU0EfMzeaTExXgzeKX4FfisbDExBZwgIdDhYX39sPoGhkcjovFiqVITGFjYOBEayQSVzWREFXNl6sRFKxBrBOoamxtb2zpBbHvHB2GGI7AAjVwBrcnnaeiWKVAq04Ym4mzEymMeWKpXKJwQZiESN2vDIBTI2UhdweghoYCIABFnC4pth8USSc4plEYr94gCkstUqtZG1NtIpJzeNwyGIFIUEWcLo1mjcOtZ7t08QTiaS3p97D84gtGckVloyApBLJuPwJLlSgcGiJeAikYIUQo0RisbIcdLBgA3AhgADucupCu+9NViXVLNO5V04i1cgUfIF-HNEktElR6JEmLM9sluOdro9VLJsAAru9MMRff9-czgYgBdr+AUBNJuNJpNajjGdGJyrl+aJJHXslZJcxUBA4GwHgzS0C0ghOLJ+cJxJIZPJdsoEWDpOd2wZubJcr209KgiEPF5UFMx4CNVPGuDZAo9qUmtxedJcmaNFoDOcJLy2-tCg2HTsJ5Jgic8mQnVY9kEfYI3EApuCUetpHNT9jGrPlyh2IpLH3OwKU9M8-QvQNEQFL9TXnApGxKCp30RVDvwwv9sMAnoM3dAjQKI8DL05dduBndEFGKNESmQui9R0NCf0w-8cKsIA */
   id: "form",
   initial: "contactInfoStep",
   context: {
     data: initialData,
   },
-  on: {
-    exit: {
-      actions: () => {
-        assign({
-          data: initialData,
-        })
-        console.log("Exiting form!")
-      },
-      target: "contactInfoStep",
-    },
-  },
+  // on: {
+  //   exit: {
+  //     actions: () => {
+  //       assign({
+  //         data: initialData,
+  //       })
+  //       console.log("Exiting form!")
+  //     },
+  //     target: "#form.contactInfoStep",
+  //   },
+  // },
   states: {
     contactInfoStep: {
       on: {
@@ -116,15 +117,15 @@ export const multiStepFormMachine = setup({
           actions: () => {
             console.log("Submitting data!")
           },
-          target: "done",
+          // target: "done",
         },
       },
     },
-    done: {
-      type: "final",
-      entry: assign({
-        data: initialData,
-      }),
-    },
+    // done: {
+    //   type: "final",
+    // entry: assign({
+    //   data: initialData,
+    // }),
+    // },
   },
 })
