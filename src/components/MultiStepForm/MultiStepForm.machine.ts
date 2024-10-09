@@ -1,4 +1,4 @@
-import { assign, setup } from "xstate"
+import { assign, enqueueActions, setup } from "xstate"
 import {
   AddressStepSchema,
   ContactInfoStepSchema,
@@ -51,17 +51,16 @@ export const multiStepFormMachine = setup({
   context: {
     data: initialData,
   },
-  // on: {
-  //   exit: {
-  //     actions: () => {
-  //       assign({
-  //         data: initialData,
-  //       })
-  //       console.log("Exiting form!")
-  //     },
-  //     target: "#form.contactInfoStep",
-  //   },
-  // },
+  on: {
+    exit: {
+      actions: enqueueActions(({ enqueue }) => {
+        enqueue.assign({
+          data: () => initialData,
+        })
+      }),
+      target: "#form.contactInfoStep",
+    },
+  },
   states: {
     contactInfoStep: {
       on: {

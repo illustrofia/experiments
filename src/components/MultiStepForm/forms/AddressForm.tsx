@@ -1,7 +1,15 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { Form } from "@/components/ui"
-import { Button, FormControl, FormField, FormItem, FormLabel, FormMessage, Input } from "../../ui"
+import {
+  Button,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+  Input,
+} from "../../ui"
 import { AddressStepSchema, addressStepSchema } from "../MultiStepForm.types"
 
 interface AddressFormProps {
@@ -11,14 +19,16 @@ interface AddressFormProps {
   onExit: () => void
 }
 
-export const AddressForm = (
-  { onSubmit, onBack, onExit, defaultValues }: AddressFormProps
-) => {
+export const AddressForm = ({
+  onSubmit,
+  onBack,
+  onExit,
+  defaultValues,
+}: AddressFormProps) => {
   const form = useForm<AddressStepSchema>({
     resolver: zodResolver(addressStepSchema),
-    defaultValues
+    defaultValues,
   })
-
 
   return (
     <Form {...form}>
@@ -68,18 +78,10 @@ export const AddressForm = (
         />
 
         <div className="flex gap-4">
-          <Button
-            type="button"
-            variant="destructive"
-            onClick={onExit}
-          >
+          <Button type="button" variant="destructive" onClick={onExit}>
             exit
           </Button>
-          <Button
-            type="button"
-            variant="secondary"
-            onClick={onBack}
-          >
+          <Button type="button" variant="secondary" onClick={onBack}>
             back
           </Button>
           <Button type="submit">next</Button>

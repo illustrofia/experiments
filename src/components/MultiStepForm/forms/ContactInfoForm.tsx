@@ -1,7 +1,18 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Form } from "@/components/ui"
-import { Button, FormControl, FormField, FormItem, FormLabel, FormMessage, Input } from "../../ui"
-import { ContactInfoStepSchema, contactInfoStepSchema } from "../MultiStepForm.types"
+import {
+  Button,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+  Input,
+} from "../../ui"
+import {
+  ContactInfoStepSchema,
+  contactInfoStepSchema,
+} from "../MultiStepForm.types"
 import { useForm } from "react-hook-form"
 
 interface ContactInfoFormProps {
@@ -11,13 +22,14 @@ interface ContactInfoFormProps {
   onExit: () => void
 }
 
-
-export const ContactInfoForm = (
-  { onSubmit, onExit, defaultValues }: ContactInfoFormProps
-) => {
+export const ContactInfoForm = ({
+  onSubmit,
+  onExit,
+  defaultValues,
+}: ContactInfoFormProps) => {
   const form = useForm<ContactInfoStepSchema>({
     resolver: zodResolver(contactInfoStepSchema),
-    defaultValues
+    defaultValues,
   })
 
   return (
@@ -54,11 +66,7 @@ export const ContactInfoForm = (
         />
 
         <div className="flex gap-4">
-          <Button
-            type="button"
-            variant="destructive"
-            onClick={onExit}
-          >
+          <Button type="button" variant="destructive" onClick={onExit}>
             exit
           </Button>
           <Button type="submit">next</Button>
