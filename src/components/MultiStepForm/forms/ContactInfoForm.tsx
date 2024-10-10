@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Form } from "@/components/ui"
+import { Form, FormDescription } from "@/components/ui"
 import {
   Button,
   FormControl,
@@ -40,15 +40,28 @@ export const ContactInfoForm = ({
         <FormField
           control={form.control}
           name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Email</FormLabel>
-              <FormControl>
-                <Input placeholder="johndoe@gmail.com" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+          render={({ field }) => {
+            const maxLength = 100
+            return (
+              <FormItem>
+                <FormLabel>Email</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="johndoe@gmail.com"
+                    maxLength={100}
+                    {...field}
+                  />
+                </FormControl>
+                <div className="flex justify-between">
+                  <FormDescription>Your email, friend!</FormDescription>
+                  <span className="text-xs text-muted-foreground">
+                    {field.value.length} / {maxLength}
+                  </span>
+                </div>
+                <FormMessage />
+              </FormItem>
+            )
+          }}
         />
 
         <FormField
@@ -60,6 +73,9 @@ export const ContactInfoForm = ({
               <FormControl>
                 <Input placeholder="Name" {...field} />
               </FormControl>
+              <FormDescription>
+                The way your friends call you on the street.
+              </FormDescription>
               <FormMessage />
             </FormItem>
           )}
